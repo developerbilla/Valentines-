@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Valentine's Surprise for My Love 💖</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;700&display=swap');
+
+    body {
+      margin: 0;
+      font-family: 'Montserrat', sans-serif;
+      color: white;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      position: relative;
+      background-color: #ffcccb;
+    }
+
+    .background-video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1;
+    }
+
+    .card {
+      text-align: center;
+      background: linear-gradient(135deg, rgba(255, 0, 150, 0.5), rgba(255, 102, 0, 0.5));
+      backdrop-filter: blur(12px);
+      border-radius: 20px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+      padding: 30px;
+      max-width: 500px;
+      animation: fadeIn 2s ease;
+      position: relative;
+      z-index: 1;
+    }
+
+    h1 {
+      font-family: 'Great Vibes', cursive;
+      font-size: 3.5rem;
+      margin-bottom: 20px;
+      color: #fff;
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.9);
+      animation: glow 2s infinite alternate;
+    }
+
+    @keyframes glow {
+      from {
+        text-shadow: 0 0 10px #fff, 0 0 20px #ff4f6d;
+      }
+
+      to {
+        text-shadow: 0 0 20px #ff4f6d, 0 0 30px #ff8c94;
+      }
+    }
+
+    p {
+      font-size: 1.3rem;
+      line-height: 1.8;
+      color: #ffe4ed;
+    }
+
+    button {
+      padding: 12px 30px;
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: white;
+      background: linear-gradient(45deg, #ff758c, #ff7eb3);
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: 0.3s;
+      box-shadow: 0 0 10px rgba(255, 118, 144, 0.7);
+    }
+
+    button:hover {
+      transform: scale(1.1);
+      background: linear-gradient(45deg, #ff477e, #ff5c9a);
+      box-shadow: 0 0 20px rgba(255, 118, 144, 1);
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: scale(0.9);
+      }
+
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    .hidden-message,
+    .final-message {
+      display: none;
+      margin-top: 20px;
+      font-size: 1.4rem;
+      color: #ffe4e9;
+      animation: fadeIn 1s ease;
+    }
+
+    .final-message {
+      font-size: 1.8rem;
+      font-family: 'Great Vibes', cursive;
+      background: #fff;
+      color: #ff758c;
+      padding: 20px;
+      border-radius: 20px;
+      text-shadow: 0 0 10px #ff4f6d;
+    }
+
+    .heart {
+      position: absolute;
+      bottom: 0;
+      font-size: 2rem;
+      color: #ff4f6d;
+      animation: floatingHearts 6s infinite ease-in-out;
+    }
+
+    @keyframes floatingHearts {
+      0% {
+        transform: translateY(0);
+        opacity: 1;
+      }
+
+      100% {
+        transform: translateY(-100vh);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <video class="background-video" autoplay loop muted>
+    <source src="/a/bd.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+
+  <audio id="backgroundMusic" autoplay loop muted>
+    <source src="/a/aa.mp3" type="audio/mp3">
+    Your browser does not support the audio tag.
+  </audio>
+  
+  <button id="startMusic" onclick="startMusic()">Click to Start Music</button>
+  
+
+
+  <div class="card">
+    <h1 id="greeting">Happy Valentine's Day, My Love! ❤️</h1>
+    <p id="loveQuote"></p>
+    <p id="loveMessage"></p>
+    <button onclick="revealMessage()">Click for a Surprise</button>
+    <div class="hidden-message" id="hiddenMessage">
+      <p>🌹 You make my world brighter every day. 💖</p>
+      <button onclick="finalReveal()">Click for More</button>
+    </div>
+    <div class="final-message" id="finalMessage">
+      💌 You are my today, my tomorrow, and my forever. Love you endlessly! 💕
+    </div>
+  </div>
+
+  <script>
+    function startMusic() {
+      const audio = document.getElementById("backgroundMusic");
+      audio.muted = false;  // Unmute the audio
+      audio.play().catch(error => console.log("Autoplay blocked:", error));
+      document.getElementById("startMusic").style.display = "none";  // Hide the button after clicking
+    }
+
+
+    function revealMessage() {
+      document.getElementById("hiddenMessage").style.display = "block";
+    }
+
+    function finalReveal() {
+      document.getElementById("finalMessage").style.display = "block";
+    }
+
+    function createHearts() {
+      for (let i = 0; i < 10; i++) {
+        let heart = document.createElement("div");
+        heart.innerHTML = "❤️";
+        heart.classList.add("heart");
+        heart.style.left = `${Math.random() * 100}vw`;
+        heart.style.animationDuration = `${2 + Math.random() * 4}s`;
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 5000);
+      }
+    }
+    setInterval(createHearts, 1000);
+
+    const quotes = [
+      "You are my sun, my moon, and all my stars. ✨",
+      "With you, every moment is magical. ❤️",
+      "You make my world brighter. 🌍💖",
+      "Every love story is beautiful, but ours is my favorite. 💞",
+      "I would choose you in every lifetime. 💕"
+    ];
+    document.getElementById("loveQuote").innerText = quotes[Math.floor(Math.random() * quotes.length)];
+
+    const message = "My Love, I cherish you beyond words! 💖";
+    let i = 0;
+    function typeMessage() {
+      if (i < message.length) {
+        document.getElementById("loveMessage").innerHTML += message.charAt(i);
+        i++;
+        setTimeout(typeMessage, 100);
+      }
+    }
+    setTimeout(typeMessage, 2000);
+  </script>
+
+</body>
+
+</html>
